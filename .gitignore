@@ -1,0 +1,6 @@
+
+.venv/
+.venv_new/
+data/FakeNews_dataset/Fake.csv
+data/FakeNews_dataset/True.csv
+truth_guard_index.faiss
