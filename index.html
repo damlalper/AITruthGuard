@@ -93,13 +93,7 @@
       }
 
       function ChatApp() {
-        const apiBase = React.useMemo(() => {
-          if (typeof window === 'undefined') return 'http://127.0.0.1:8000';
-          const loc = window.location || {};
-          const protocol = (loc.protocol === 'https:' || loc.protocol === 'http:') ? loc.protocol : 'http:';
-          const hostname = loc.hostname || '127.0.0.1';
-          return `${protocol}//${hostname}:8000`;
-        }, []);
+        const apiBase = 'https://aitruthguard-backend.onrender.com';
         const [input, setInput] = useState('');
         const [isSending, setIsSending] = useState(false);
         const [messages, setMessages] = useState([
