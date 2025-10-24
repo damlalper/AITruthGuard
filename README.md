@@ -1,39 +1,39 @@
 # AITruthGuard Project
 
-## 1. Projenin Amacı
+## 1. Project Goal
 
-Bu proje, yapay zeka destekli bir "Gerçeklik Koruyucusu" (Truth Guard) geliştirmeyi amaçlamaktadır. Temel olarak, kullanıcılardan gelen soruları veya iddiaları analiz ederek, mevcut bilgi tabanına (veri setine) dayanarak bu iddiaların doğruluğunu değerlendirir ve ilgili bilgileri sunar. Proje, yanlış bilginin yayılmasını engellemeye ve kullanıcılara güvenilir bilgi sağlamaya odaklanmaktadır.
+This project aims to develop an AI-powered "Truth Guard." Its primary goal is to analyze user queries or claims, evaluate their accuracy based on an existing knowledge base (dataset), and provide relevant information. The project focuses on preventing the spread of misinformation and providing reliable information to users.
 
-## 2. Veri Seti Hakkında Bilgi
+## 2. About the Dataset
 
-Proje, haber makalelerinden oluşan bir veri seti kullanmaktadır. Bu veri seti, hem gerçek (True) hem de sahte (Fake) haber örneklerini içermektedir. Veri setinin içeriği, doğal dil işleme (NLP) modellerinin eğitilmesi ve iddiaların doğruluğunu sınıflandırmak için kullanılmaktadır.
+The project utilizes a dataset composed of news articles. This dataset includes both genuine (True) and fake (Fake) news examples. The content of the dataset is used to train natural language processing (NLP) models and to classify the accuracy of claims.
 
-*   **Veri Seti İçeriği:** Haber başlıkları, metinleri ve ilgili etiketler (gerçek/sahte).
-*   **Proje Konusu:** Yanlış bilgi tespiti ve doğrulama.
+*   **Dataset Content:** News headlines, texts, and corresponding labels (true/fake).
+*   **Project Topic:** Misinformation detection and verification.
 
-## 3. Kullanılan Yöntemler
+## 3. Methods Used
 
-Bu projede, Geri Çağırma Artırılmış Üretim (Retrieval-Augmented Generation - RAG) mimarisi kullanılmıştır. Bu mimari, bir dil modelinin (örneğin Gemini) harici bir bilgi tabanından (veri setimiz) ilgili bilgileri alarak daha doğru ve bağlamsal olarak uygun yanıtlar üretmesini sağlar.
+This project employs a Retrieval-Augmented Generation (RAG) architecture. This architecture enables a language model (e.g., Gemini) to retrieve relevant information from an external knowledge base (our dataset) to generate more accurate and contextually appropriate responses.
 
-*   **Gömme (Embedding):** `sentence-transformers` kütüphanesi kullanılarak metinlerin vektör temsilleri (embedding'ler) oluşturulmuştur.
-*   **Vektör Veritabanı:** FAISS (Facebook AI Similarity Search) kullanılarak oluşturulan embedding'ler hızlı arama ve benzerlik karşılaştırmaları için indekslenmiştir.
-*   **Dil Modeli:** Google'ın Gemini API'si kullanılarak kullanıcı sorgularına yanıtlar üretilmiştir.
+*   **Embedding:** Text embeddings (vector representations) are created using the `sentence-transformers` library.
+*   **Vector Database:** The generated embeddings are indexed using FAISS (Facebook AI Similarity Search) for fast retrieval and similarity comparisons.
+*   **Language Model:** Google's Gemini API is used to generate responses to user queries.
 
-## 4. Elde Edilen Sonuçlar
+## 4. Achieved Results
 
-(Bu bölüm, projenin geliştirme aşamasında elde edilen spesifik sonuçları, model performans metriklerini, doğruluk oranlarını vb. içerecektir. Şu an için genel bir özet sunulmuştur.)
+(This section will contain specific results obtained during the project's development phase, such as model performance metrics, accuracy rates, etc. A general summary is provided for now.)
 
-Proje, haber metinlerinin doğruluğunu yüksek bir başarı oranıyla sınıflandırma ve kullanıcı sorgularına ilgili ve doğru bilgilerle yanıt verme potansiyeli göstermektedir. RAG mimarisi sayesinde, modelin güncel ve spesifik bilgilere erişimi artırılmıştır.
+The project demonstrates the potential to classify the accuracy of news texts with a high success rate and to respond to user queries with relevant and accurate information. Thanks to the RAG architecture, the model's access to up-to-date and specific information has been enhanced.
 
-## 5. Kodunuzun Çalışma Kılavuzu
+## 5. Code Execution Guide
 
-Projenin yerel ortamda çalıştırılması için aşağıdaki adımları takip ediniz:
+To run the project locally, follow these steps:
 
-1.  **Python Sanal Ortamı Oluşturma:**
+1.  **Create a Python Virtual Environment:**
     ```bash
     python -m venv .venv
     ```
-2.  **Sanal Ortamı Aktifleştirme:**
+2.  **Activate the Virtual Environment:**
     *   Windows:
         ```bash
         .venv\Scripts\activate
@@ -42,47 +42,81 @@ Projenin yerel ortamda çalıştırılması için aşağıdaki adımları takip 
         ```bash
         source .venv/bin/activate
         ```
-3.  **Gerekli Kütüphaneleri Yükleme:**
+3.  **Install Required Libraries:**
     ```bash
     pip install -r requirements.txt
     ```
-4.  **API Anahtarlarını Ayarlama:**
-    Projenin kök dizininde `.env` adında bir dosya oluşturun ve Google Gemini API anahtarınızı aşağıdaki formatta ekleyin:
+4.  **Set Up API Keys:**
+    Create a `.env` file in the project root and add your Google Gemini API key in the following format:
     ```
     GEMINI_API_KEY=YOUR_GEMINI_API_KEY
     ```
-    Ayrıca, eğer kullanılıyorsa, haber API anahtarınızı da ekleyin:
+    Also, if used, add your news API key:
     ```
     NEWS_API_KEY=YOUR_NEWS_API_KEY
     ```
-5.  **Backend Sunucusunu Çalıştırma:**
+5.  **Run the Backend Server (Local):**
     ```bash
     uvicorn backend.server:app --host 0.0.0.0 --port 8000
     ```
-    Bu komut, FastAPI backend sunucusunu başlatacaktır.
+    This command will start the FastAPI backend server.
 
-## 6. Çözüm Mimariniz
+## 6. Solution Architecture
 
-Proje, aşağıdaki temel bileşenlerden oluşan bir RAG (Retrieval-Augmented Generation) mimarisi kullanır:
+The project uses a RAG (Retrieval-Augmented Generation) architecture consisting of the following core components:
 
-*   **Veri Yükleyici (Data Loader):** Haber veri setini (gerçek ve sahte haberler) yükler ve işler.
-*   **Gömücü (Embedder):** `sentence-transformers` kullanarak haber metinlerini ve kullanıcı sorgularını vektör uzayında temsil eden embedding'lere dönüştürür.
-*   **İndeks Yöneticisi (Index Manager):** Oluşturulan embedding'leri FAISS indeksinde saklar ve hızlıca benzer metinleri bulmak için kullanılır.
-*   **RAG Chatbot:** Kullanıcı sorgusunu alır, ilgili haberleri FAISS indeksinden çeker ve bu bağlamı Google Gemini dil modeline ileterek yanıt üretir.
-*   **FastAPI Backend:** Frontend ile iletişim kuran ve RAG chatbot işlevselliğini sunan RESTful API endpoint'leri sağlar.
-*   **Frontend:** Kullanıcı arayüzünü sağlar ve backend ile etkileşim kurar.
+*   **Data Loader:** Loads and processes the news dataset (true and fake news).
+*   **Embedder:** Uses `sentence-transformers` to convert news texts and user queries into embeddings, representing them in a vector space.
+*   **Vector Database:** Stores the created embeddings in a FAISS index for fast searching and similarity comparisons.
+*   **Language Model:** Google's Gemini API is used to generate responses to user queries by retrieving relevant news from the FAISS index.
+*   **FastAPI Backend:** Provides RESTful API endpoints that communicate with the frontend and offer RAG chatbot functionality.
+*   **Frontend:** Provides the user interface and interacts with the backend.
 
-## 7. Web Arayüzü & Product Kılavuzu
+## 7. Web Interface & Product Guide
 
-**Deploy Linki:** [https://damlalper.github.io/AITruthGuard/](https://damlalper.github.io/AITruthGuard/)
+**Frontend Deploy Link (GitHub Pages):** [https://damlalper.github.io/AITruthGuard/](https://damlalper.github.io/AITruthGuard/)
 
-**Çalışma Akışı ve Test:**
+**Backend Deploy Link (Render):** [https://aitruthguard-backend.onrender.com](https://aitruthguard-backend.onrender.com)
 
-1.  Yukarıdaki deploy linkine tıklayarak web arayüzüne erişin.
-2.  Arayüzde bir metin giriş alanı ve bir "Sor" veya "Doğrula" butonu bulunacaktır.
-3.  Metin giriş alanına doğrulamak istediğiniz bir iddiayı veya sormak istediğiniz bir soruyu yazın.
-4.  Butona tıklayın.
-5.  Backend, sorgunuzu işleyecek, ilgili haberleri bulacak ve Gemini modelini kullanarak bir yanıt üretecektir.
-6.  Yanıt, arayüzde size sunulacaktır. Bu yanıt, iddia hakkında bilgi, güven düzeyi ve ilgili haber kaynaklarını içerebilir.
+**Workflow and Testing:**
 
-(Ekran görüntüleri/video anlatım buraya eklenebilir.)
+1.  Access the web interface by clicking on the frontend deploy link above.
+2.  The interface will feature a text input area and a "Ask" or "Verify" button.
+3.  Type a claim you wish to verify or a question you want to ask into the text input area.
+4.  Click the button.
+5.  The backend will process your query, find relevant news articles, and generate a response using the Gemini model.
+6.  The response will be displayed in the interface. This response may include information about the claim, a confidence level, and relevant news sources.
+
+(Screenshots/video demonstration can be added here.)
+
+## 8. Backend Deployment on Render
+
+To deploy the FastAPI backend to Render, follow these steps:
+
+1.  **Create a Render Account:** If you don't have one, sign up at [Render.com](https://render.com/).
+2.  **Create a New Web Service:**
+    *   Log in to your Render dashboard.
+    *   Click on the "New" button and select "Web Service."
+3.  **Connect to GitHub:**
+    *   Connect your GitHub repository: `https://github.com/damlalper/AITruthGuard`.
+    *   Ensure Render has access to your repository.
+4.  **Configure the Service:**
+    *   **Name:** Choose a unique name for your service (e.g., `aitruthguard-backend`).
+    *   **Region:** Select a region geographically close to your users.
+    *   **Branch:** Set to `master`.
+    *   **Root Directory:** Leave this field empty (as your `Procfile` is in the root of the repository).
+    *   **Build Command:** `pip install -r requirements.txt`
+    *   **Start Command:** `uvicorn backend.server:app --host 0.0.0.0 --port $PORT`
+5.  **Set Environment Variables:**
+    *   Go to the "Environment" section of your Render service settings.
+    *   Add the following environment variables with your actual API keys:
+        *   `GEMINI_API_KEY`: Your Google Gemini API key.
+        *   `NEWS_API_KEY`: Your News API key (if applicable).
+    *   **Important:** These keys should NOT be committed to your GitHub repository.
+6.  **Deploy:**
+    *   Click "Create Web Service" or "Deploy" to start the deployment process.
+    *   Monitor the deployment logs on Render. The service should now start successfully due to the lazy loading implementation.
+7.  **Obtain Backend URL:**
+    *   Once deployed, Render will provide a public URL for your backend API (e.g., `https://your-service-name.onrender.com`).
+8.  **Update Frontend:**
+    *   Ensure your frontend (`index.html` on your `gh-pages` branch) is updated to make API calls to this new Render backend URL. (This step has already been completed by the agent.)
