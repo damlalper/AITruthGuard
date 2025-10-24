@@ -119,4 +119,4 @@ To deploy the FastAPI backend to Render, follow these steps:
 7.  **Obtain Backend URL:**
     *   Once deployed, Render will provide a public URL for your backend API (e.g., `https://your-service-name.onrender.com`).
 8.  **Update Frontend:**
-    *   Ensure your frontend (`index.html` on your `gh-pages` branch) is updated to make API calls to this new Render backend URL. (This step has already been completed by the agent.)
+    *   Ensure your frontend (`index.html` on your `gh-pages` branch) is updated to make API calls to this new Render backend URL. 
