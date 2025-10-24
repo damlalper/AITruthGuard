@@ -30,19 +30,16 @@ class AskResponse(BaseModel):
     top_index: list
 
 
-bot = None
-
-
-@app.on_event("startup")
-def on_startup() -> None:
-    global bot
-    bot = RAGChatbot()
+_bot_instance = None
 
 
 @app.post("/ask", response_model=AskResponse)
 def ask(req: AskRequest) -> AskResponse:
+    global _bot_instance
+    if _bot_instance is None:
+        _bot_instance = RAGChatbot()
     try:
-        out = bot.ask(req.query, k=req.k or 5)
+        out = _bot_instance.ask(req.query, k=req.k or 5)
         return AskResponse(**out)
     except Exception as e:
         # Bubble up as JSON 500 with message
